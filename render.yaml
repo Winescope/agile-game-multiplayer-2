@@ -1,0 +1,22 @@
+services:
+  # Backend WebSocket Server
+  - type: web
+    name: agile-game-backend
+    env: node
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    plan: free
+
+  # Frontend Static Site
+  - type: web
+    name: agile-game-frontend
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_WS_URL
+        value: wss://agile-game-backend.onrender.com
+    plan: free 

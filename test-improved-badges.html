@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Player Badges Test</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .feature-list {
+            background: #e8f5e8;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .badge-demo {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .player-badge {
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 4px;
+            padding: 4px 8px;
+            display: inline-block;
+            text-align: center;
+            min-width: 60px;
+            position: relative;
+        }
+        .player-badge.primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: 1px solid #1e40af;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+        .player-badge.primary::before {
+            content: '👤 ';
+            margin-right: 4px;
+        }
+        .player-badge.primary::after {
+            content: ' (Primary)';
+            font-size: 10px;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+        .player-badge.secondary {
+            background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%);
+            color: #7c3aed;
+            border: 1px solid #c084fc;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(124, 58, 237, 0.2);
+        }
+        .player-badge.secondary::before {
+            content: '🤝 ';
+            margin-right: 4px;
+        }
+        .player-badge.secondary::after {
+            content: ' (Helper)';
+            font-size: 10px;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+        .ticket-mockup {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            max-width: 300px;
+        }
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+        .ticket-id {
+            font-weight: 700;
+            color: #374151;
+        }
+        .ticket-type {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .ticket-content {
+            font-size: 14px;
+        }
+        .point-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .point-label {
+            font-weight: 500;
+            color: #6b7280;
+        }
+        .point-value {
+            font-weight: 600;
+            color: #374151;
+        }
+        .player-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e5e7eb;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎯 Improved Player Badge Distinction!</h1>
+    
+    <div class="test-card">
+        <h2>What's New:</h2>
+        <div class="feature-list">
+            <p><strong>✅ Much clearer distinction between primary workers and helpers!</strong></p>
+            <p>Primary workers now have a prominent blue badge with a person icon, while helpers have a purple badge with a handshake icon.</p>
+        </div>
+    </div>
+
+    <div class="test-card">
+        <h2>Visual Comparison:</h2>
+        <div class="badge-demo">
+            <div>
+                <strong>Primary Worker:</strong>
+                <div class="player-badge primary">Alice</div>
+            </div>
+            <div>
+                <strong>Helper:</strong>
+                <div class="player-badge secondary">Bob</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-card">
+        <h2>How It Looks on a Ticket:</h2>
+        <div class="ticket-mockup">
+            <div class="ticket-header">
+                <div class="ticket-id">#123</div>
+                <div class="ticket-type">Normal</div>
+            </div>
+            <div class="ticket-content">
+                <div class="point-row">
+                    <span class="point-label">Phase 1:</span>
+                    <span class="point-value">4/6</span>
+                </div>
+                <div class="point-row">
+                    <span class="point-label">Phase 2:</span>
+                    <span class="point-value">0/6</span>
+                </div>
+                <div class="player-section">
+                    <div class="player-badge primary">Alice</div>
+                    <div class="player-badge secondary">Bob</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-card">
+        <h2>Key Improvements:</h2>
+        <ul>
+            <li><strong>👤 Primary Worker Badge:</strong> Blue gradient background, white text, person icon, "(Primary)" label</li>
+            <li><strong>🤝 Helper Badge:</strong> Purple gradient background, purple text, handshake icon, "(Helper)" label</li>
+            <li><strong>Visual Hierarchy:</strong> Primary worker badge is more prominent with stronger colors and shadows</li>
+            <li><strong>Clear Labels:</strong> Both badges now have descriptive text to remove any confusion</li>
+            <li><strong>Icons:</strong> Person icon for primary worker, handshake icon for helper</li>
+        </ul>
+    </div>
+
+    <div class="test-card">
+        <h2>How It Works:</h2>
+        <ol>
+            <li>When you assign a ticket to Player A, they get the <span class="highlight">blue primary badge</span></li>
+            <li>When Player B helps by dropping dice on Player A's ticket, they get the <span class="highlight">purple helper badge</span></li>
+            <li>The distinction is now immediately clear at a glance</li>
+        </ol>
+    </div>
+
+    <div class="test-card">
+        <h2>Technical Changes:</h2>
+        <div style="background: #f4f4f4; padding: 15px; border-radius: 4px; font-family: monospace;">
+            <p><strong>CSS Updates:</strong></p>
+            <ul>
+                <li>Added <code>.player-badge.primary</code> with blue gradient and person icon</li>
+                <li>Enhanced <code>.player-badge.secondary</code> with purple gradient and handshake icon</li>
+                <li>Added descriptive labels "(Primary)" and "(Helper)"</li>
+                <li>Improved visual hierarchy with shadows and gradients</li>
+            </ul>
+            <p><strong>Component Updates:</strong></p>
+            <ul>
+                <li>Updated Ticket component to use <code>primary</code> class for main assignee</li>
+                <li>Maintained <code>secondary</code> class for helpers</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-card">
+        <h2>Next Steps:</h2>
+        <p>To see these improvements in action:</p>
+        <ol>
+            <li>Navigate to the agile-game directory</li>
+            <li>Run <code>npm run dev</code> (or use the standalone HTML file)</li>
+            <li>Go to Session 2 and test the helper feature</li>
+            <li><span class="highlight">You'll now see a clear visual distinction between primary workers and helpers!</span></li>
+        </ol>
+    </div>
+</body>
+</html> 

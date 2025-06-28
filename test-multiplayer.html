@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplayer Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .log {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        input {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Agile Game - Multiplayer Test</h1>
+    
+    <div class="test-section">
+        <h2>WebSocket Connection Test</h2>
+        <input type="text" id="roomInput" placeholder="Room name" value="test-room">
+        <input type="password" id="passwordInput" placeholder="Password" value="test123">
+        <input type="text" id="nameInput" placeholder="Your name" value="TestPlayer">
+        <br>
+        <button onclick="connect()">Connect</button>
+        <button onclick="disconnect()">Disconnect</button>
+        <button onclick="clearLog()">Clear Log</button>
+        <div id="status">Disconnected</div>
+        <div id="log" class="log"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Game State Test</h2>
+        <button onclick="sendTestState()">Send Test State</button>
+        <button onclick="joinRoom()">Join Room</button>
+    </div>
+
+    <script>
+        let ws = null;
+        let isConnected = false;
+
+        function log(message) {
+            const logDiv = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            logDiv.innerHTML += `[${timestamp}] ${message}<br>`;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+
+        function updateStatus() {
+            document.getElementById('status').textContent = isConnected ? 'Connected' : 'Disconnected';
+            document.getElementById('status').style.color = isConnected ? 'green' : 'red';
+        }
+
+        function connect() {
+            const room = document.getElementById('roomInput').value;
+            const password = document.getElementById('passwordInput').value;
+            const name = document.getElementById('nameInput').value;
+
+            if (!room || !password || !name) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            try {
+                ws = new WebSocket('ws://localhost:8080');
+                
+                ws.onopen = function() {
+                    log('WebSocket connected');
+                    isConnected = true;
+                    updateStatus();
+                    
+                    // Send join message
+                    ws.send(JSON.stringify({
+                        type: 'join',
+                        room: room,
+                        password: password,
+                        name: name
+                    }));
+                };
+
+                ws.onmessage = function(event) {
+                    const message = JSON.parse(event.data);
+                    log(`Received: ${JSON.stringify(message)}`);
+                };
+
+                ws.onclose = function() {
+                    log('WebSocket disconnected');
+                    isConnected = false;
+                    updateStatus();
+                };
+
+                ws.onerror = function(error) {
+                    log(`WebSocket error: ${error}`);
+                    isConnected = false;
+                    updateStatus();
+                };
+
+            } catch (error) {
+                log(`Connection error: ${error}`);
+            }
+        }
+
+        function disconnect() {
+            if (ws) {
+                ws.close();
+                ws = null;
+            }
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+
+        function joinRoom() {
+            if (!isConnected) {
+                alert('Please connect first');
+                return;
+            }
+
+            const room = document.getElementById('roomInput').value;
+            const password = document.getElementById('passwordInput').value;
+            const name = document.getElementById('nameInput').value;
+
+            ws.send(JSON.stringify({
+                type: 'join',
+                room: room,
+                password: password,
+                name: name
+            }));
+        }
+
+        function sendTestState() {
+            if (!isConnected) {
+                alert('Please connect first');
+                return;
+            }
+
+            const testState = {
+                round: 1,
+                session: 1,
+                players: [
+                    { id: 1, name: 'Player 1', currentDiceRoll: null, currentTicket: null, isHost: true, hasRolledThisRound: false }
+                ],
+                tickets: [
+                    { id: '1', type: 'normal', status: 'todo', points: { phase1: 0, phase2: 0 }, hasBlocker: false, blockerPoints: 0, assignedTo: undefined, assignedTo2: undefined, createdRound: 1, completedRound: undefined, inProgressEnteredRound: undefined }
+                ],
+                isGameStarted: true,
+                hostId: 1,
+                diceValues: {}
+            };
+
+            ws.send(JSON.stringify({
+                type: 'update',
+                state: testState
+            }));
+
+            log('Sent test state');
+        }
+
+        // Initialize
+        updateStatus();
+    </script>
+</body>
+</html> 

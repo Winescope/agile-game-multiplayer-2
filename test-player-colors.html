@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player-Specific Colors Test</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .feature-list {
+            background: #e8f5e8;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .player-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+        .player-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .player-badge {
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 4px;
+            padding: 4px 8px;
+            display: inline-block;
+            text-align: center;
+            min-width: 60px;
+            position: relative;
+        }
+        .player-badge.player-1 {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+            border: 1px solid #1e40af;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+        }
+        .player-badge.player-1::before {
+            content: '👤 ';
+            margin-right: 4px;
+        }
+        .player-badge.player-2 {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            border: 1px solid #047857;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+        }
+        .player-badge.player-2::before {
+            content: '👤 ';
+            margin-right: 4px;
+        }
+        .player-badge.player-3 {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: 1px solid #b45309;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+        }
+        .player-badge.player-3::before {
+            content: '👤 ';
+            margin-right: 4px;
+        }
+        .player-badge.player-4 {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: 1px solid #b91c1c;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+        }
+        .player-badge.player-4::before {
+            content: '👤 ';
+            margin-right: 4px;
+        }
+        .player-badge.player-5 {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+            border: 1px solid #6d28d9;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
+        }
+        .player-badge.player-5::before {
+            content: '👤 ';
+            margin-right: 4px;
+        }
+        .player-badge.player-6 {
+            background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+            color: white;
+            border: 1px solid #be185d;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(236, 72, 153, 0.3);
+        }
+        .player-badge.player-6::before {
+            content: '👤 ';
+            margin-right: 4px;
+        }
+        .ticket-mockup {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            max-width: 300px;
+        }
+        .ticket-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+        .ticket-id {
+            font-weight: 700;
+            color: #374151;
+        }
+        .ticket-type {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .ticket-content {
+            font-size: 14px;
+        }
+        .point-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+        .point-label {
+            font-weight: 500;
+            color: #6b7280;
+        }
+        .point-value {
+            font-weight: 600;
+            color: #374151;
+        }
+        .player-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e5e7eb;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Player-Specific Color System!</h1>
+    
+    <div class="test-card">
+        <h2>What's New:</h2>
+        <div class="feature-list">
+            <p><strong>✅ Each player now has their own consistent color!</strong></p>
+            <p>Player 1 is always blue, Player 2 is always green, Player 3 is orange, etc. This makes it easy to identify who's working on what, regardless of whether they're the primary worker or helper.</p>
+        </div>
+    </div>
+
+    <div class="test-card">
+        <h2>Player Color System:</h2>
+        <div class="player-demo">
+            <div class="player-card">
+                <strong>Player 1</strong>
+                <div class="player-badge player-1">Alice</div>
+                <div style="color: #3b82f6; font-size: 12px; margin-top: 4px;">Blue</div>
+            </div>
+            <div class="player-card">
+                <strong>Player 2</strong>
+                <div class="player-badge player-2">Bob</div>
+                <div style="color: #10b981; font-size: 12px; margin-top: 4px;">Green</div>
+            </div>
+            <div class="player-card">
+                <strong>Player 3</strong>
+                <div class="player-badge player-3">Charlie</div>
+                <div style="color: #f59e0b; font-size: 12px; margin-top: 4px;">Orange</div>
+            </div>
+            <div class="player-card">
+                <strong>Player 4</strong>
+                <div class="player-badge player-4">Diana</div>
+                <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">Red</div>
+            </div>
+            <div class="player-card">
+                <strong>Player 5</strong>
+                <div class="player-badge player-5">Eve</div>
+                <div style="color: #8b5cf6; font-size: 12px; margin-top: 4px;">Purple</div>
+            </div>
+            <div class="player-card">
+                <strong>Player 6</strong>
+                <div class="player-badge player-6">Frank</div>
+                <div style="color: #ec4899; font-size: 12px; margin-top: 4px;">Pink</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-card">
+        <h2>How It Looks on a Ticket:</h2>
+        <div class="ticket-mockup">
+            <div class="ticket-header">
+                <div class="ticket-id">#123</div>
+                <div class="ticket-type">Normal</div>
+            </div>
+            <div class="ticket-content">
+                <div class="point-row">
+                    <span class="point-label">Phase 1:</span>
+                    <span class="point-value">4/6</span>
+                </div>
+                <div class="point-row">
+                    <span class="point-label">Phase 2:</span>
+                    <span class="point-value">0/6</span>
+                </div>
+                <div class="player-section">
+                    <div class="player-badge player-1">Alice</div>
+                    <div class="player-badge player-2">Bob</div>
+                </div>
+            </div>
+        </div>
+        <p><em>Alice (Player 1) is the primary worker in blue, Bob (Player 2) is helping in green</em></p>
+    </div>
+
+    <div class="test-card">
+        <h2>Key Benefits:</h2>
+        <ul>
+            <li><strong>Consistent Identity:</strong> Each player always has the same color</li>
+            <li><strong>Easy Recognition:</strong> You can quickly identify who's who</li>
+            <li><strong>No Confusion:</strong> No more wondering if blue means primary or helper</li>
+            <li><strong>Scalable:</strong> Works for up to 10 players with distinct colors</li>
+            <li><strong>Professional:</strong> Clean, consistent visual design</li>
+        </ul>
+    </div>
+
+    <div class="test-card">
+        <h2>Color Palette:</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px;">
+            <div style="background: #3b82f6; color: white; padding: 8px; border-radius: 4px; text-align: center;">Player 1 - Blue</div>
+            <div style="background: #10b981; color: white; padding: 8px; border-radius: 4px; text-align: center;">Player 2 - Green</div>
+            <div style="background: #f59e0b; color: white; padding: 8px; border-radius: 4px; text-align: center;">Player 3 - Orange</div>
+            <div style="background: #ef4444; color: white; padding: 8px; border-radius: 4px; text-align: center;">Player 4 - Red</div>
+            <div style="background: #8b5cf6; color: white; padding: 8px; border-radius: 4px; text-align: center;">Player 5 - Purple</div>
+            <div style="background: #ec4899; color: white; padding: 8px; border-radius: 4px; text-align: center;">Player 6 - Pink</div>
+        </div>
+    </div>
+
+    <div class="test-card">
+        <h2>How It Works:</h2>
+        <ol>
+            <li>When you add players, they get assigned IDs (1, 2, 3, etc.)</li>
+            <li>Each player ID corresponds to a specific color</li>
+            <li>When a player is assigned to a ticket (primary or helper), they keep their color</li>
+            <li>You can instantly see who's working on what by their consistent color</li>
+        </ol>
+    </div>
+
+    <div class="test-card">
+        <h2>Technical Changes:</h2>
+        <div style="background: #f4f4f4; padding: 15px; border-radius: 4px; font-family: monospace;">
+            <p><strong>CSS Updates:</strong></p>
+            <ul>
+                <li>Replaced <code>.player-badge.primary</code> and <code>.player-badge.secondary</code></li>
+                <li>Added <code>.player-badge.player-1</code> through <code>.player-badge.player-10</code></li>
+                <li>Each player class has its own gradient color scheme</li>
+                <li>All players use the same person icon (👤) for consistency</li>
+            </ul>
+            <p><strong>Component Updates:</strong></p>
+            <ul>
+                <li>Updated Ticket component to use <code>player-${playerId}</code> classes</li>
+                <li>Both primary and helper players now use their player-specific colors</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-card">
+        <h2>Next Steps:</h2>
+        <p>To see these improvements in action:</p>
+        <ol>
+            <li>Navigate to the agile-game directory</li>
+            <li>Run <code>npm run dev</code> (or use the standalone HTML file)</li>
+            <li>Add multiple players and assign tickets</li>
+            <li><span class="highlight">You'll see each player maintains their own color consistently!</span></li>
+        </ol>
+    </div>
+</body>
+</html> 
