@@ -11,12 +11,10 @@ services:
     plan: free
 
   # Frontend Static Site
-  - type: web
+  - type: static
     name: agile-game-frontend
-    env: static
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     envVars:
       - key: VITE_WS_URL
-        value: wss://agile-game-backend.onrender.com
-    plan: free 
+        value: wss://agile-game-backend.onrender.com 
